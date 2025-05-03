@@ -1,0 +1,1 @@
+This is a sample storage object for Cloud storage demo.

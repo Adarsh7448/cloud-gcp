@@ -1,0 +1,38 @@
+gcloud auth login
+gcloud projects list
+gcloud config set project sylvan-cycle-458110-v2
+
+create storage bucket
+gcloud storage buckets create gs://test-bucket-03052000 --location=ASIA
+
+Locations
+Regions
+us-central1
+asia-southeast1
+
+Zones
+us-central1-a
+us-central1-b
+
+buckets list 
+gcloud storage buckets list
+
+bucket url: gs://test-bucket-03052000
+
+Upload
+gcloud storage cp <local_file> <gs://bucketname>
+
+download
+gcloud storage cp <gs://bucketname/file_name> <local_filename>
+
+move file from bucket 1 to bucket 2
+gcloud storage mv <gs://bucket_1name/file_name> <gs://bucket_2name/file_name>
+
+delete
+gcloud storage rm <gs://bucketname/file_name>
+
+empty bucket delete
+gcloud storage buckets delete <gs://bucketname>
+
+Non-empty bucket delete
+gcloud storage rm -r <gs://bucketname>
