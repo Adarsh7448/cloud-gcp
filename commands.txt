@@ -26,7 +26,7 @@ download
 gcloud storage cp <gs://bucketname/file_name> <local_filename>
 
 move file from bucket 1 to bucket 2
-gcloud storage mv <gs://bucket_1name/file_name> <gs://bucket_2name/file_name>
+gcloud storage mv <gs://bucket_1name/file_name> <gs://bucket_2name>
 
 delete
 gcloud storage rm <gs://bucketname/file_name>
