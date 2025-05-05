@@ -1,0 +1,57 @@
+gcloud auth login
+gcloud projects list
+gcloud config set project sylvan-cycle-458110-v2 
+
+Enable API
+gcloud services enable sqladmin.googleapis.com
+
+Create Instance
+gcloud sql instances create sql-instance-1608 --database-version=MYSQL_8_0 --tier=db-f1-micro --region=asia-southeast1
+gcloud sql instances create sql-instance-1608 --database-version=POSTGRES_14 --tier=db-f1-micro --region=asia-southeast1
+
+Check Instance
+gcloud sql instances list
+
+Create Database 
+gcloud sql databases create demo_db --instance=sql-instance-1608
+
+Create User
+gcloud sql users set-password ws_user --host=% --instance=sql-instance-1608 --password=cloud_sql_123
+
+Get Public IP of instance
+gcloud sql instances describe sql-instance-1608 --format="value(ipAddresses[0].ipAddress)"
+
+Get Cloud SQL Auth Proxy - For Windows
+Right-click https://storage.googleapis.com/cloud-sql-connectors/cloud-sql-proxy/v2.16.0/cloud-sql-proxy.x64.exe 
+and select Save Link As to download the Cloud SQL Auth Proxy. 
+Rename the file to cloud-sql-proxy.exe.
+
+Run Proxy 
+cloud-sql-proxy.exe sylvan-cycle-458110-v2:asia-southeast1:sql-instance-1608
+
+How to find correct connection name
+gcloud sql instances describe sql-instance-1608 --format="value(connectionName)"
+
+login using mysql shell
+mysql -u root -p -h 127.0.0.1 
+mysql -u ws_user -p -h 127.0.0.1 -D test_db 
+
+sql --
+
+GRANT ALL PRIVILEGES ON test_db.* TO 'ws_user'@'%';
+FLUSH PRIVILEGES;
+
+create table -- sql --
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE
+);
+
+insert date -- sql --
+INSERT INTO users (name, email) VALUES
+('test_user1', 'test_user1@example.com'),
+('test_user2', 'test_user2@example.com');
+
+test data -- sql --
+SELECT * FROM users;
