@@ -1,0 +1,4 @@
+flask
+pymysql
+google-cloud-storage 
+gunicorn

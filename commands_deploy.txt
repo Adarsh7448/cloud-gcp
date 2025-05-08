@@ -1,0 +1,8 @@
+gcloud config set builds/use_kaniko True
+
+gcloud builds submit --no-cache --tag us-central1-docker.pkg.dev/sylvan-cycle-458110-v2/flask-repo/flask-app
+
+
+gcloud run deploy blog-app --image=us-central1-docker.pkg.dev/sylvan-cycle-458110-v2/blog-repo/blog-app --platform=managed --region=us-central1 --allow-unauthenticated --set-env-vars DB_USER=demo_user,DB_PASSWORD=gcp_12345,DB_NAME=demo_db,DB_HOST=/cloudsql/sylvan-cycle-458110-v2:us-central1:test-sql-instance --add-cloudsql-instances=sylvan-cycle-458110-v2:us-central1:test-sql-instance
+
+gcloud projects add-iam-policy-binding sylvan-cycle-458110-v2 --member="serviceAccount:169507530014-compute@developer.gserviceaccount.com" --role="roles/cloudsql.client"
